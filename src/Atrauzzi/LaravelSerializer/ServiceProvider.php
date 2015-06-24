@@ -20,12 +20,13 @@
 
 				/** @var \Illuminate\Config\Repository $config */
 				$config = $app->make('Illuminate\Config\Repository');
+				$serializerConfig = $config->get('serializer');
 
 				return SerializerBuilder
 					::create()
 					->setCacheDir(storage_path('cache/serializer'))
 					->setDebug($config->get('app.debug'))
-					->addMetadataDir($config->get('serializer.mappings.directory'))
+					->addMetadataDir($serializerConfig['mappings']['directory'], $serializerConfig['mappings']['namespace'])
 					->build()
 				;
 
